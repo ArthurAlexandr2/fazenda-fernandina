@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc:*)",
+      "Bash(export PATH=\"$PATH:/c/Program Files/nodejs\")",
+      "Bash(cp \"/c/Users/arthu/Downloads/FAZENDA FERNANDINA  \\(100x65\\) \\(1\\) \\(2\\).png\" \"/c/Users/arthu/OneDrive/Desktop/fazenda-fernandina/public/logo-hero.png\")",
+      "Bash(cp \"/c/Users/arthu/Downloads/FAZENDA_FERNANDINA_LADO_LADO-removebg-preview.png\" \"/c/Users/arthu/OneDrive/Desktop/fazenda-fernandina/public/logo-navbar.png\")"
+    ]
+  }
+}

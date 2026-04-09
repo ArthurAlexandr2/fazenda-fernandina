@@ -1,26 +1,111 @@
+/* ============================================================
+   IMPORTAÇÃO DO TAILWIND CSS v4
+   Esta linha ativa todos os utilitários do Tailwind (bg-*, text-*, flex, etc.)
+   ============================================================ */
 @import "tailwindcss";
 
+/* ============================================================
+   VARIÁVEIS CSS - Paleta de cores da Fazenda Fernandina
+   Definidas aqui no :root, ficam disponíveis em todo o site.
+   Uso: var(--dourado), var(--fundo-card), etc.
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ----- Fundos -----
+     Usados para criar profundidade e ritmo visual entre as seções */
+  --fundo-principal: #0d0d0d; /* Preto profundo — fundo base do site */
+  --fundo-card: #1a1a1a; /* Cinza muito escuro — fundo dos cards */
+  --fundo-claro: #f5f0e8; /* Bege/creme — seções de contraste claro */
+  --fundo-claro-card: #eeebe3; /* Bege mais escuro — cards na seção clara */
+
+  /* ----- Accent / Destaque -----
+     O dourado é a cor da marca — chama atenção e representa elegância */
+  --dourado: #d4a017; /* Dourado principal */
+  --dourado-hover: #e8b420; /* Dourado mais claro — efeito hover nos botões */
+  --dourado-texto: #c8940f; /* Dourado escuro — labels de categoria */
+
+  /* ----- Textos ----- */
+  --texto-claro: #ffffff; /* Branco — texto sobre fundos escuros */
+  --texto-secundario: #9a9a9a; /* Cinza — textos de apoio e metadados */
+  --texto-escuro: #1a1a1a; /* Quase preto — texto sobre fundos claros */
+
+  /* ----- Status dos animais -----
+     Cores que o usuário entende intuitivamente */
+  --disponivel: #4caf50; /* Verde — animal disponível para compra */
+  --reservado: #e53935; /* Vermelho — animal já reservado */
+  --reproducao: #ff9800; /* Laranja — animal de reprodução (não à venda) */
+
+  /* ----- WhatsApp ----- */
+  --whatsapp: #25d366; /* Verde oficial do WhatsApp */
+  --whatsapp-hover: #20b858; /* Verde mais escuro — hover */
+
+  /* ----- Bordas ----- */
+  --borda: #2a2a2a; /* Cinza escuro — borda sutil dos cards */
 }
 
+/* ============================================================
+   INTEGRAÇÃO COM TAILWIND v4 — @theme inline
+   Registra nossas cores como utilitários do Tailwind.
+   Depois de registrar aqui, podemos usar:
+     bg-dourado, text-dourado, border-borda, bg-whatsapp, etc.
+   O prefixo "--color-" é o que o Tailwind v4 reconhece como cor.
+
+   IMPORTANTE: usamos valores hex diretos (não var()) para que os
+   modificadores de opacidade funcionem: bg-dourado/15, bg-dourado/40.
+   ============================================================ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Fontes — as variáveis CSS são criadas no layout.tsx via next/font */
+  --font-sans: var(--font-inter); /* Inter — textos, labels, botões */
+  --font-display: var(--font-cormorant); /* Cormorant Garamond — títulos elegantes */
+
+  /* Cores de fundo */
+  --color-fundo: #0d0d0d;
+  --color-fundo-card: #1a1a1a;
+  --color-fundo-claro: #f5f0e8;
+  --color-fundo-claro-card: #eeebe3;
+
+  /* Cores de destaque */
+  --color-dourado: #d4a017;
+  --color-dourado-hover: #e8b420;
+  --color-dourado-texto: #c8940f;
+
+  /* Cores de texto */
+  --color-texto-claro: #ffffff;
+  --color-texto-secundario: #9a9a9a;
+  --color-texto-escuro: #1a1a1a;
+
+  /* Cores de status */
+  --color-disponivel: #4caf50;
+  --color-reservado: #e53935;
+  --color-reproducao: #ff9800;
+
+  /* Cor do WhatsApp */
+  --color-whatsapp: #25d366;
+  --color-whatsapp-hover: #20b858;
+
+  /* Cor de borda */
+  --color-borda: #2a2a2a;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================================
+   ESTILOS BASE — aplicados em todo o site
+   ============================================================ */
+html {
+  /* scroll-behavior: smooth faz os links de âncora (#quem-somos, #contato)
+     rolarem suavemente em vez de pular abruptamente para a seção */
+  scroll-behavior: smooth;
+
+  /* scroll-padding-top: compensa a navbar fixa no topo.
+     Sem isso, ao clicar em um link de âncora, o título da seção
+     ficaria escondido atrás da navbar. 80px = altura aproximada da navbar */
+  scroll-padding-top: 80px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Fundo e cor de texto padrão do site */
+  background-color: var(--fundo-principal);
+  color: var(--texto-claro);
+
+  /* Suaviza as fontes no navegador — deixa o texto mais nítido */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
