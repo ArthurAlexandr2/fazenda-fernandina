@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     template: "%s | Fazenda Fernandina", // páginas internas usam: "Haras | Fazenda Fernandina"
   },
   description:
-    "Fazenda Fernandina — criações selecionadas de cavalos, alpacas, mini cabras, mini porcos, coelhos e mini gado em Gravatá-PE.",
+    "Fazenda Fernandina — criações selecionadas de cavalos, alpacas, mini cabras, mini porcos e coelhos em Gravatá-PE.",
   keywords: [
     "Fazenda Fernandina",
     "Haras",

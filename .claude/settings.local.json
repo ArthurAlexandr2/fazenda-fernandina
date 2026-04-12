@@ -4,7 +4,14 @@
       "Bash(npx tsc:*)",
       "Bash(export PATH=\"$PATH:/c/Program Files/nodejs\")",
       "Bash(cp \"/c/Users/arthu/Downloads/FAZENDA FERNANDINA  \\(100x65\\) \\(1\\) \\(2\\).png\" \"/c/Users/arthu/OneDrive/Desktop/fazenda-fernandina/public/logo-hero.png\")",
-      "Bash(cp \"/c/Users/arthu/Downloads/FAZENDA_FERNANDINA_LADO_LADO-removebg-preview.png\" \"/c/Users/arthu/OneDrive/Desktop/fazenda-fernandina/public/logo-navbar.png\")"
+      "Bash(cp \"/c/Users/arthu/Downloads/FAZENDA_FERNANDINA_LADO_LADO-removebg-preview.png\" \"/c/Users/arthu/OneDrive/Desktop/fazenda-fernandina/public/logo-navbar.png\")",
+      "Read(//c/Users/arthu/Downloads/**)",
+      "Bash(magick --version)",
+      "Bash(python3 -c \"import fitz; print\\('ok'\\)\")",
+      "Bash(python -c \"import fitz; print\\('ok'\\)\")",
+      "Bash(powershell -Command 'Add-Type -AssemblyName System.Drawing; $pdf = '\\\\''C:\\\\Users\\\\arthu\\\\Downloads\\\\BANDEIRA MARCHADOR  1.40X1.pdf'\\\\''; echo $pdf')",
+      "Bash(grep -i \"\\\\.png$\")",
+      "Bash(node -e ':*)"
     ]
   }
 }

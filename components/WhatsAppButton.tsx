@@ -1,10 +1,12 @@
 /* ============================================================
-   WHATSAPPBUTTON — Botão flutuante do WhatsApp
+   WHATSAPPBUTTON — Botão flutuante com balão de conversa
 
-   Sempre visível no canto inferior direito.
-   Hover: cresce levemente (scale-110) + sombra esverdeada.
+   'use client' para o estado de fechar o balão (dispensar).
+   O balão aparece automaticamente e pode ser fechado com o X.
    ============================================================ */
+'use client'
 
+import { useState } from "react";
 import { linkWhatsApp } from "@/lib/whatsapp";
 
 function IconeWhatsApp() {
@@ -16,18 +18,83 @@ function IconeWhatsApp() {
 }
 
 export default function WhatsAppButton() {
+  const [balaoVisivel, setBalaoVisivel] = useState(true);
+
   return (
-    /* hover:scale-110 = cresce 10% ao passar o mouse — feedback visual claro.
-       hover:shadow-green-500/30 = sombra esverdeada que "irradia" a cor do WhatsApp.
-       transition-all duration-200 = ambos os efeitos animam juntos suavemente. */
-    <a
-      href={linkWhatsApp}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Entrar em contato pelo WhatsApp"
-      className="fixed bottom-6 right-6 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-whatsapp hover:bg-whatsapp-hover text-white shadow-lg hover:shadow-green-500/30 hover:scale-110 transition-all duration-200"
-    >
-      <IconeWhatsApp />
-    </a>
+    <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3">
+
+      {/* ---- BALÃO DE CONVERSA ---- */}
+      <div
+        className={`transition-all duration-300 ease-in-out ${
+          balaoVisivel
+            ? "opacity-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 translate-y-3 pointer-events-none"
+        }`}
+      >
+        <div className="relative bg-fundo-card border border-white/10 rounded-2xl rounded-br-sm shadow-xl w-64 p-4">
+
+          {/* Botão fechar */}
+          <button
+            onClick={() => setBalaoVisivel(false)}
+            aria-label="Fechar"
+            className="absolute top-2.5 right-2.5 text-white/30 hover:text-white/70 transition-colors duration-150 cursor-pointer"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}
+              className="w-3.5 h-3.5" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          {/* Cabeçalho: avatar + nome + status online */}
+          <div className="flex items-center gap-2.5 mb-3 pr-4">
+            {/* Avatar circular verde com ícone WA */}
+            <div className="shrink-0 flex items-center justify-center w-9 h-9 rounded-full bg-whatsapp text-white">
+              <IconeWhatsApp />
+            </div>
+            <div>
+              <p className="font-sans font-semibold text-white text-xs leading-tight">
+                Fazenda Fernandina
+              </p>
+              {/* Indicador online pulsante */}
+              <span className="flex items-center gap-1 mt-0.5">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+                </span>
+                <span className="font-sans text-[10px] text-green-400">Online agora</span>
+              </span>
+            </div>
+          </div>
+
+          {/* Mensagem */}
+          <div className="bg-fundo rounded-xl rounded-tl-sm px-3 py-2.5">
+            <p className="font-sans text-xs text-white/80 leading-relaxed">
+              Olá! Estamos à disposição para tirar dúvidas e apresentar nossos animais.
+            </p>
+          </div>
+
+          {/* Horário de atendimento */}
+          <p className="font-sans text-[10px] text-texto-secundario mt-2.5 text-center tracking-wide">
+            Atendemos todos os dias · 09h às 18h
+          </p>
+
+          {/* Cauda do balão — quadrado rotacionado no canto inferior direito */}
+          <div className="absolute -bottom-[7px] right-[18px] w-3.5 h-3.5 bg-fundo-card border-r border-b border-white/10 rotate-45" />
+        </div>
+      </div>
+
+      {/* ---- BOTÃO CIRCULAR WHATSAPP ---- */}
+      <a
+        href={linkWhatsApp}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Entrar em contato pelo WhatsApp"
+        onClick={() => setBalaoVisivel(false)}
+        className="flex items-center justify-center w-14 h-14 rounded-full bg-whatsapp hover:bg-whatsapp-hover text-white shadow-lg hover:shadow-green-500/25 hover:scale-110 transition-all duration-200"
+      >
+        <IconeWhatsApp />
+      </a>
+
+    </div>
   );
 }

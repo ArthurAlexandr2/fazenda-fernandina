@@ -109,3 +109,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* ============================================================
+   UTILITÁRIO — esconde a scrollbar mantendo o scroll funcional.
+   Usado nos carrosséis horizontais de animais no mobile.
+   ============================================================ */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }

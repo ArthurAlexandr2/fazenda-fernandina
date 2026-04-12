@@ -225,17 +225,14 @@ export default function Home() {
               nos escolhe.
             </p>
 
-            {/* Parágrafo 3 — nomes das criações em negrito
-                ATENÇÃO: o Figma usava "Canil Ursos da Colina" — corrigido para
-                "Mini Gado Fernandina", que é a criação atual da fazenda. */}
+            {/* Parágrafo 3 — nomes das criações em negrito */}
             <p>
               Nosso trabalho integra o{" "}
               <strong className="font-semibold" style={{ color: '#1A1A1A' }}>Haras Fernandina</strong>, o{" "}
               <strong className="font-semibold" style={{ color: '#1A1A1A' }}>Alpacas dos Andes</strong>, o{" "}
               <strong className="font-semibold" style={{ color: '#1A1A1A' }}>Mini Cabras dos Alpes</strong>, o{" "}
-              <strong className="font-semibold" style={{ color: '#1A1A1A' }}>Mini-Porcos da Serra</strong>, o{" "}
-              <strong className="font-semibold" style={{ color: '#1A1A1A' }}>Coelhos da Montanha</strong> e o{" "}
-              <strong className="font-semibold" style={{ color: '#1A1A1A' }}>Mini Gado Fernandina</strong>,
+              <strong className="font-semibold" style={{ color: '#1A1A1A' }}>Mini-Porcos da Serra</strong> e os{" "}
+              <strong className="font-semibold" style={{ color: '#1A1A1A' }}>Coelhos da Montanha</strong>,
               reunindo criações selecionadas com alto padrão de cuidado.
             </p>
 
@@ -297,7 +294,7 @@ export default function Home() {
           <div className="text-center mb-14">
             <LabelSecao>Por que nos escolher</LabelSecao>
             <h2 className="font-display font-bold text-white text-4xl sm:text-5xl mt-3 leading-tight">
-              O Que Nos Torna Especiais
+              O Que Nos Torna <br className="sm:hidden" />Especiais
             </h2>
             <Separador />
           </div>
@@ -389,7 +386,7 @@ export default function Home() {
           {/* Grid de cards — 1 col mobile, 2 col tablet, 3 col desktop
               Os dados vêm do arquivo lib/data.ts (CRIACOES_MOCK)
               Na Fase 3, virão do banco de dados Supabase */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {CRIACOES_MOCK.map((criacao) => (
               /* Cada card recebe os dados da criação como "prop" */
               <CriacaoCard key={criacao.id} criacao={criacao} />

@@ -10,7 +10,10 @@ import Image from "next/image";
 export default function Footer() {
   return (
     /* Borda no topo para separar visualmente do conteúdo acima */
-    <footer className="bg-fundo border-t border-borda">
+    <footer className="bg-fundo">
+      {/* Linha decorativa: gradiente dourado que brilha no centro e desvanece nas bordas */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-dourado/50 to-transparent" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         {/* ---- LOGO ----
             Mesma logo da navbar (logo-navbar.png), só um pouco menor.
