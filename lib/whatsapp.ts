@@ -8,12 +8,13 @@
 /* Número da fazenda no formato internacional:
    55 = Brasil | 81 = DDD Pernambuco | resto = número
    Substituir pelo número real quando disponível */
-const WHATSAPP_NUMERO = "5581999999999";
+const WHATSAPP_NUMERO = "5581996976298";
+const MENSAGEM_PADRAO = "Olá, tenho interesse em falar com a equipe de atendimento da Fazenda Fernandina!";
 
 /* -------------------------------------------------------
    Link genérico — usado nos botões da home e da seção de contato
    ------------------------------------------------------- */
-export const linkWhatsApp = `https://wa.me/${WHATSAPP_NUMERO}`;
+export const linkWhatsApp = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(MENSAGEM_PADRAO)}`;
 
 /* -------------------------------------------------------
    Link com mensagem pré-preenchida — usado na página do animal
