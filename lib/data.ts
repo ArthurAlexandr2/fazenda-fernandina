@@ -303,7 +303,7 @@ export const ANIMAIS_MOCK: Animal[] = [
     ativo: true,
     criado_em: "2026-01-01",
     atualizado_em: "2026-01-01",
-    fotos_animais: [{ url: "/lorde-do-monteiro.jpg", principal: true, ordem: 1 }],
+    fotos_animais: [{ url: "/lorde-do-monteiro-garanhao.jpg", principal: true, ordem: 1 }],
   },
   {
     id: "a12",
