@@ -57,7 +57,6 @@ export default function ListagemFiltrada({ animais, slug }: ListagemFiltradaProp
     todos:       animais.length,
     disponivel:  animais.filter((a) => a.status === "disponivel").length,
     reproducao:  animais.filter((a) => a.status === "reproducao").length,
-    reservado:   animais.filter((a) => a.status === "reservado").length,
   }), [animais]);
 
   /* -------------------------------------------------------
@@ -131,21 +130,17 @@ export default function ListagemFiltrada({ animais, slug }: ListagemFiltradaProp
     slug === "cavalos"
       ? [
           { valor: "disponivel", label: `Disponível (${contadores.disponivel})` },
-          { valor: "reservado",  label: `Reservado (${contadores.reservado})`   },
           { valor: "reproducao", label: `Matriz (${contadores.reproducao})`     },
         ]
       : slug === "alpacas" || slug === "mini-cabras" || slug === "mini-porcos" || slug === "coelhos"
       ? [
           { valor: "disponivel", label: `Disponível (${contadores.disponivel})` },
-          { valor: "reservado",  label: `Reservado (${contadores.reservado})`   },
           { valor: "reproducao", label: `Matriz (${contadores.reproducao})`     },
         ]
       : [
-          /* Todas as outras criações mantêm o padrão com "Todos" + "Reprodução" */
-          { valor: "todos",      label: `Todos (${contadores.todos})`             },
-          { valor: "disponivel", label: `Disponíveis (${contadores.disponivel})`  },
-          { valor: "reproducao", label: `Reprodução (${contadores.reproducao})`   },
-          { valor: "reservado",  label: `Reservados (${contadores.reservado})`    },
+          { valor: "todos",      label: `Todos (${contadores.todos})`            },
+          { valor: "disponivel", label: `Disponíveis (${contadores.disponivel})` },
+          { valor: "reproducao", label: `Reprodução (${contadores.reproducao})`  },
         ];
 
   /* Categorias disponíveis para este slug */

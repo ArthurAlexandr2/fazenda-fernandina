@@ -25,7 +25,6 @@ import type { Animal } from "@/lib/types";
 function StatusBadge({ status }: { status: Animal["status"] }) {
   const config = {
     disponivel: { cor: "bg-disponivel", texto: "Disponível" },
-    reservado:  { cor: "bg-reservado",  texto: "Reservado"  },
     reproducao: { cor: "bg-reproducao", texto: "Reprodução" },
   };
   const { cor, texto } = config[status];

@@ -46,7 +46,6 @@ function IconeWhatsApp() {
 function StatusBadgeHero({ status }: { status: Animal["status"] }) {
   const config = {
     disponivel: { cor: "bg-disponivel", texto: "Disponível" },
-    reservado:  { cor: "bg-reservado",  texto: "Reservado"  },
     reproducao: { cor: "bg-reproducao", texto: "Reprodução" },
   };
   const { cor, texto } = config[status];
@@ -134,7 +133,6 @@ export default async function PaginaAnimal({
   /* Texto do status em português para o badge */
   const statusTexto = {
     disponivel: "Disponível",
-    reservado:  "Reservado",
     reproducao: "Reprodução",
   }[animal.status];
 

@@ -50,7 +50,7 @@ export interface Animal {
   grupo: string; // categoria do animal dentro da criação
 
   // status tem apenas 3 valores possíveis — TypeScript garante isso
-  status: "disponivel" | "reservado" | "reproducao";
+  status: "disponivel" | "reproducao";
 
   // campos exclusivos de cavalos (null nos outros animais)
   andamento: string | null; // "Batida" ou "Picada"
@@ -68,4 +68,4 @@ export interface Animal {
 /* -------------------------------------------------------
    Tipo para o filtro de status ativo na página de criação
    ------------------------------------------------------- */
-export type StatusFiltro = "todos" | "disponivel" | "reservado" | "reproducao";
+export type StatusFiltro = "todos" | "disponivel" | "reproducao";
