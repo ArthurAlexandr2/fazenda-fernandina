@@ -82,10 +82,11 @@ function CampoFicha({
    ------------------------------------------------------- */
 interface AnimalModalProps {
   animal: Animal;
-  onClose: () => void; /* função chamada para fechar o modal */
+  nomeCriacao: string;
+  onClose: () => void;
 }
 
-export default function AnimalModal({ animal, onClose }: AnimalModalProps) {
+export default function AnimalModal({ animal, nomeCriacao, onClose }: AnimalModalProps) {
   /* -------------------------------------------------------
      EFEITO: bloqueia o scroll da página enquanto o modal está aberto.
      Sem isso, o usuário pode rolar a listagem atrás do drawer.
@@ -258,7 +259,7 @@ export default function AnimalModal({ animal, onClose }: AnimalModalProps) {
             mx-4 mb-4 = margem para não encostar nas bordas. */}
         <div className="sticky bottom-0 bg-fundo-card pt-2 pb-4 px-4">
           <a
-            href={linkWhatsAppAnimal(animal.nome)}
+            href={linkWhatsAppAnimal(animal.nome, nomeCriacao)}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-3 w-full bg-whatsapp hover:bg-whatsapp-hover text-white font-sans font-semibold text-base py-4 rounded-xl transition-colors duration-200"

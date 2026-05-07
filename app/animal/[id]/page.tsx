@@ -128,7 +128,7 @@ export default async function PaginaAnimal({
     .join(" · ");
 
   /* Link do WhatsApp com mensagem pré-preenchida com o nome do animal */
-  const linkWpp = linkWhatsAppAnimal(animal.nome);
+  const linkWpp = linkWhatsAppAnimal(animal.nome, criacao?.nome ?? "Fazenda Fernandina");
 
   /* Texto do status em português para o badge */
   const statusTexto = {

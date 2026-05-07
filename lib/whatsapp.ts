@@ -20,9 +20,9 @@ export const linkWhatsApp = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURICo
    Link com mensagem pré-preenchida — usado na página do animal
    encodeURIComponent converte acentos e espaços para formato de URL
    ------------------------------------------------------- */
-export const linkWhatsAppAnimal = (nomeAnimal: string) =>
+export const linkWhatsAppAnimal = (nomeAnimal: string, nomeCriacao: string) =>
   `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(
-    `Olá! Tenho interesse no animal ${nomeAnimal} da Fazenda Fernandina. Poderia me passar mais informações?`
+    `Olá! Tenho interesse no animal ${nomeAnimal} (${nomeCriacao}) da Fazenda Fernandina. Poderia me passar mais informações?`
   )}`;
 
 /* -------------------------------------------------------

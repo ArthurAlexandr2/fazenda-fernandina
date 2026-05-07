@@ -13,8 +13,45 @@
 import { useState, useMemo } from "react";
 import AnimalCard from "@/components/AnimalCard";
 import AnimalModal from "@/components/AnimalModal";
-import { CATEGORIAS_POR_CRIACAO } from "@/lib/data";
+import { CATEGORIAS_POR_CRIACAO, CRIACOES_MOCK } from "@/lib/data";
 import type { Animal, StatusFiltro } from "@/lib/types";
+
+/* -------------------------------------------------------
+   Ícone de cerca — usado no placeholder de grupo vazio
+   ------------------------------------------------------- */
+function IconeCerca() {
+  return (
+    <svg viewBox="0 0 56 32" fill="none" stroke="currentColor" strokeWidth={1.8}
+      className="w-14 h-8 text-dourado/30" aria-hidden="true">
+      <line x1="8"  y1="6"  x2="8"  y2="28" strokeLinecap="round" />
+      <line x1="28" y1="6"  x2="28" y2="28" strokeLinecap="round" />
+      <line x1="48" y1="6"  x2="48" y2="28" strokeLinecap="round" />
+      <line x1="3"  y1="13" x2="53" y2="13" strokeLinecap="round" />
+      <line x1="3"  y1="22" x2="53" y2="22" strokeLinecap="round" />
+      <polyline points="5.5,6 8,2 10.5,6" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="25.5,6 28,2 30.5,6" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="45.5,6 48,2 50.5,6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/* -------------------------------------------------------
+   Placeholder para grupos sem animais cadastrados
+   ------------------------------------------------------- */
+function GrupoEmBreve({ grupo }: { grupo: string }) {
+  return (
+    <div className="border border-dashed border-white/10 rounded-xl px-6 py-10 flex flex-col items-center gap-3 text-center">
+      <IconeCerca />
+      <p className="font-display text-white/40 text-lg italic">
+        Porteira fechada por enquanto
+      </p>
+      <p className="font-sans text-texto-secundario text-sm max-w-xs leading-relaxed">
+        Os próximos {grupo.toLowerCase()} estão sendo selecionados com o mesmo critério de sempre.
+        Coisa boa demora — mas vale a pena esperar.
+      </p>
+    </div>
+  );
+}
 
 /* -------------------------------------------------------
    Ícone de lupa para o input de busca
@@ -35,6 +72,8 @@ interface ListagemFiltradaProps {
 }
 
 export default function ListagemFiltrada({ animais, slug }: ListagemFiltradaProps) {
+
+  const nomeCriacao = CRIACOES_MOCK.find((c) => c.slug === slug)?.nome ?? slug;
 
   /* -------------------------------------------------------
      ESTADOS DOS FILTROS E DO MODAL
@@ -111,10 +150,14 @@ export default function ListagemFiltrada({ animais, slug }: ListagemFiltradaProp
   /* Ordem de exibição dos grupos — definida por CATEGORIAS_POR_CRIACAO */
   const ordemGrupos = CATEGORIAS_POR_CRIACAO[slug] ?? [];
 
-  /* Lista final dos grupos que têm animais, na ordem correta */
+  /* Grupos com animais (para verificação e filtro ativo) */
   const gruposComAnimais = ordemGrupos.filter(
     (grupo) => animaisAgrupados[grupo]?.length > 0
   );
+
+  /* Quando não há filtro ativo, mostra todos os grupos — incluindo vazios
+     (que exibem o placeholder "em breve"). Com filtro, só grupos com resultado. */
+  const gruposParaExibir = statusAtivo === "todos" ? ordemGrupos : gruposComAnimais;
 
   /* -------------------------------------------------------
      CONFIGURAÇÃO DAS PILLS DE STATUS
@@ -189,7 +232,7 @@ export default function ListagemFiltrada({ animais, slug }: ListagemFiltradaProp
 
 
       {/* ---- LISTAGEM AGRUPADA ---- */}
-      {gruposComAnimais.length === 0 ? (
+      {gruposParaExibir.length === 0 ? (
         /* Mensagem quando nenhum animal passa nos filtros */
         <div className="text-center py-16">
           <p className="font-sans text-texto-secundario text-sm">
@@ -208,47 +251,51 @@ export default function ListagemFiltrada({ animais, slug }: ListagemFiltradaProp
         </div>
       ) : (
         <div className="space-y-10">
-          {gruposComAnimais.map((grupo) => {
-            const animaisDoGrupo = animaisAgrupados[grupo];
+          {gruposParaExibir.map((grupo) => {
+            const animaisDoGrupo = animaisAgrupados[grupo] ?? [];
+            const vazio = animaisDoGrupo.length === 0;
             return (
               <div key={grupo}>
-                {/* Cabeçalho do grupo — nome em uppercase + contador em dourado */}
+                {/* Cabeçalho do grupo */}
                 <div className="flex items-center gap-3 mb-4">
                   <h3 className="font-sans text-xs font-semibold tracking-widest uppercase text-white">
                     {grupo}
-                    {" "}
-                    <span className="text-dourado">{animaisDoGrupo.length}</span>
+                    {!vazio && (
+                      <>{" "}<span className="text-dourado">{animaisDoGrupo.length}</span></>
+                    )}
                   </h3>
-                  {/* Linha divisória fina */}
                   <div className="flex-1 h-px bg-white/10" />
                 </div>
 
-                {/* ---- MOBILE: carrossel horizontal com snap ----
-                    Cada card ocupa 75vw, mostrando parte do próximo
-                    para indicar visualmente que há mais para deslizar.
-                    snap-x snap-mandatory "encaixa" o scroll em cada card. */}
-                <div className="flex gap-3 overflow-x-auto pb-3 snap-x snap-mandatory scrollbar-hide md:hidden">
-                  {animaisDoGrupo.map((animal) => (
-                    <div key={animal.id} className="flex-shrink-0 w-[75vw] snap-start">
-                      <AnimalCard
-                        animal={animal}
-                        variante="vertical"
-                        onClick={() => setAnimalSelecionado(animal)}
-                      />
+                {vazio ? (
+                  <GrupoEmBreve grupo={grupo} />
+                ) : (
+                  <>
+                    {/* MOBILE: carrossel */}
+                    <div className="flex gap-3 overflow-x-auto pb-3 snap-x snap-mandatory scrollbar-hide md:hidden">
+                      {animaisDoGrupo.map((animal) => (
+                        <div key={animal.id} className="flex-shrink-0 w-[75vw] snap-start">
+                          <AnimalCard
+                            animal={animal}
+                            variante="vertical"
+                            onClick={() => setAnimalSelecionado(animal)}
+                          />
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
 
-                {/* ---- DESKTOP: grid normal (2 cols tablet, 3 cols desktop) ---- */}
-                <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-3">
-                  {animaisDoGrupo.map((animal) => (
-                    <AnimalCard
-                      key={animal.id}
-                      animal={animal}
-                      onClick={() => setAnimalSelecionado(animal)}
-                    />
-                  ))}
-                </div>
+                    {/* DESKTOP: grid */}
+                    <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-3">
+                      {animaisDoGrupo.map((animal) => (
+                        <AnimalCard
+                          key={animal.id}
+                          animal={animal}
+                          onClick={() => setAnimalSelecionado(animal)}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
             );
           })}
@@ -263,6 +310,7 @@ export default function ListagemFiltrada({ animais, slug }: ListagemFiltradaProp
     {animalSelecionado && (
       <AnimalModal
         animal={animalSelecionado}
+        nomeCriacao={nomeCriacao}
         onClose={() => setAnimalSelecionado(null)}
       />
     )}
